@@ -1,0 +1,88 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+p{
+    color: #aba8af;
+    vertical-align: top;
+    display: inline-block;
+}
+.container{
+    text-align: center;
+}
+.outer-box{
+    display: inline-block;
+    padding: 10px;
+}
+.box{
+    width: 250px;
+    text-align: left;
+    height: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border : 1px solid #C9C9C9;
+    position: relative;
+    cursor: pointer;
+}
+.box:hover {
+    border-color: #555555;
+}
+.box-options{
+    position: absolute;
+    top: 41px;
+    left: -1px;
+    width: 150%;
+    background-color: white;
+    border : 1px solid #C9C9C9;
+    border-radius: 5px;
+    z-index: 500;
+    display: none
+}
+.svg{
+    display: inline-block;
+    height: 100%;
+    margin-right: 5px;
+}
+.tab{
+    padding: 20px;
+    height: 30px;
+    position: relative;
+}
+.tab> div{
+    display: inline-block;
+    height: 100%;
+}
+.tab p {
+    color: #8b8b8b;
+}
+.tab button{
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    border : 1px solid transparent;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+}
+.button-disabled{
+    background-color: #666666
+}
+.tab >div {
+    position: absolute;
+}
+.tab .buttons{
+    right: 20px;
+}
+.tab .text-button{
+    background-color: transparent;
+    color:#666666;
+    font-weight: normal;
+}
+.text p{
+        vertical-align: -webkit-baseline-middle;
+}
+.border-selected{
+    border-color: #555555;
+}
