@@ -84,23 +84,8 @@ export class CustomSelectComponent implements OnInit {
     this.canAddAdult = this.totalPassengers < this.maxPassengers;
     this.canAddChild = this.totalPassengers < this.maxPassengers
                       && this.childCount < (4 * (this.adultCount - this.babyCount) + this.babyCount);
-    // this.canAddBaby = this.totalPassengers < this.maxPassengers
-    //                   && this.babyCount < ((this.childCount / 4) < this.adultCount ? this.childCount % 4 : 0);
-    if (this.totalPassengers < this.maxPassengers) {
-      if (this.childCount < this.adultCount * 4 ) {
-        if (this.childCount < 2 * this.adultCount) {
-          this.canAddBaby = true;
-        } else if (this.childCount / 4 < this.adultCount && this.childCount % 4 > 0 && this.childCount % 4 < 2) {
-          this.canAddBaby = true;
-        } else {
-          this.canAddBaby = false;
-        }
-      } else {
-        this.canAddBaby = false;
-      }
-    } else {
-      this.canAddBaby = false;
-    }
+    this.canAddBaby = this.totalPassengers < this.maxPassengers
+                      && this.babyCount < Math.floor((4 * this.adultCount - this.childCount) / 3);
     this.canRemoveAdult = this.adultCount > 1;
     this.canRemoveChild = this.childCount > 0;
     this.canRemoveBaby = this.babyCount > 0;
