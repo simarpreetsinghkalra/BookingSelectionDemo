@@ -8,14 +8,24 @@ import * as $ from 'jquery';
   styleUrls: ['./custom-select.component.css']
 })
 export class CustomSelectComponent implements OnInit {
+  public PassengerType = PassengerType;
   public adultCount = 1;
-  public childCount = 1;
-  public babyCount = 1;
+  public childCount = 0;
+  public babyCount = 0;
   public totalPassengers = this.adultCount +  this.childCount + this.babyCount;
   private maxPassengers = 9;
-
-  constructor() { }
-
+  public canAddAdult = true;
+  public canRemoveAdult = false;
+  public canAddChild = true;
+  public canRemoveChild = true;
+  public canAddBaby = true;
+  public canRemoveBaby = false;
+  public resultString = '';
+  constructor() {
+    this.updateTotalPassengers();
+    this.verifyRules();
+    this.generateResultString();
+  }
   ngOnInit() {
     $('.outer-box >div').click(function () {
       $('.box-options').hide();
@@ -29,7 +39,6 @@ export class CustomSelectComponent implements OnInit {
       return false;
     });
   }
-
   increaseSelection(passengerType: number) {
     switch (passengerType) {
       case PassengerType.Adult: {
@@ -46,11 +55,60 @@ export class CustomSelectComponent implements OnInit {
       }
     }
     this.updateTotalPassengers();
+    this.verifyRules();
+    this.generateResultString();
   }
   decreaseSelection(passengerType: number) {
+    switch (passengerType) {
+      case PassengerType.Adult: {
+        this.adultCount--;
+        break;
+      }
+      case PassengerType.Child: {
+        this.childCount--;
+        break;
+      }
+      case PassengerType.Baby: {
+        this.babyCount--;
+        break;
+      }
+    }
+    this.updateTotalPassengers();
+    this.verifyRules();
+    this.generateResultString();
   }
-
   updateTotalPassengers() {
     this.totalPassengers = this.adultCount +  this.childCount + this.babyCount;
+  }
+  verifyRules() {
+    this.canAddAdult = this.totalPassengers < this.maxPassengers;
+    this.canAddChild = this.totalPassengers < this.maxPassengers
+                      && this.childCount < (4 * (this.adultCount - this.babyCount) + this.babyCount);
+    // this.canAddBaby = this.totalPassengers < this.maxPassengers
+    //                   && this.babyCount < ((this.childCount / 4) < this.adultCount ? this.childCount % 4 : 0);
+    if (this.totalPassengers < this.maxPassengers) {
+      if (this.childCount < this.adultCount * 4 ) {
+        if (this.childCount < 2 * this.adultCount) {
+          this.canAddBaby = true;
+        } else if (this.childCount / 4 < this.adultCount && this.childCount % 4 > 0 && this.childCount % 4 < 2) {
+          this.canAddBaby = true;
+        } else {
+          this.canAddBaby = false;
+        }
+      } else {
+        this.canAddBaby = false;
+      }
+    } else {
+      this.canAddBaby = false;
+    }
+    this.canRemoveAdult = this.adultCount > 1;
+    this.canRemoveChild = this.childCount > 0;
+    this.canRemoveBaby = this.babyCount > 0;
+  }
+  generateResultString() {
+    this.resultString = '';
+    this.resultString += this.adultCount + ' Adult' + (this.adultCount > 1 ? 's' : '');
+    this.resultString += (this.childCount > 0) ? (', ' + this.childCount + ' Child' + (this.childCount > 1 ? 'ren' : '')) : '';
+    this.resultString += (this.babyCount > 0) ? (', ' + this.babyCount + (this.babyCount > 1 ? ' Babies' : 'Baby')) : '';
   }
 }

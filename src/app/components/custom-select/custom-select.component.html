@@ -7,7 +7,7 @@
             <p>Adults (+12 years)</p>
           </div>
           <div class="buttons">
-            <button class="button-disabled">-</button><button class="text-button">1</button><button class="button-enabled">+</button>
+            <button [ngClass]="{'button-disabled': !canRemoveAdult, 'button-enabled': canRemoveAdult}" [disabled]="!canRemoveAdult" (click)="decreaseSelection(PassengerType.Adult)">-</button><button class="text-button">{{ adultCount }}</button><button [ngClass]="{'button-disabled': !canAddAdult, 'button-enabled': canAddAdult}" [disabled]="!canAddAdult" (click)="increaseSelection(PassengerType.Adult)">+</button>
           </div>
         </div>
         <div class="tab">
@@ -15,7 +15,7 @@
             <p>Children (2-11 years)</p>
           </div>
           <div class="buttons">
-            <button class="button-disabled">-</button><button class="text-button">1</button><button class="button-enabled">+</button>
+              <button [ngClass]="{'button-disabled': !canRemoveChild, 'button-enabled': canRemoveChild}" [disabled]="!canRemoveChild" (click)="decreaseSelection(PassengerType.Child)">-</button><button class="text-button">{{ childCount }}</button><button [ngClass]="{'button-disabled': !canAddChild, 'button-enabled': canAddChild}" [disabled]="!canAddChild" (click)="increaseSelection(PassengerType.Child)">+</button>
           </div>
         </div>
         <div class="tab">
@@ -23,7 +23,7 @@
             <p>Babies (-2 years)</p>
           </div>
           <div class="buttons">
-            <button class="button-disabled">-</button><button class="text-button">1</button><button class="button-enabled">+</button>
+              <button [ngClass]="{'button-disabled': !canRemoveBaby, 'button-enabled': canRemoveBaby}" [disabled]="!canRemoveBaby" (click)="decreaseSelection(PassengerType.Baby)">-</button><button class="text-button">{{ babyCount }}</button><button [ngClass]="{'button-disabled': !canAddBaby, 'button-enabled': canAddBaby}" [disabled]="!canAddBaby" (click)="increaseSelection(PassengerType.Baby)">+</button>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
           </g>
         </svg>
       </div>
-      <p>1 Adult</p>
+      <p>{{ resultString }}</p>
     </div>
   </div>
 </div>
